@@ -1,0 +1,21 @@
+<table border=1 >
+	<tr>
+		<th>Name</th>
+		<th>Description</th>
+		<th>SKU ID</th>
+		<th>Price</th>
+		<th>Image</th>
+	</tr>
+	<% for product in @products%>
+	<tr>
+		<%Rails.logger.debug "amar   232434 #{product.inspect}"%>
+		<tr>
+			<td><%= link_to product.name, edit_product_path(product) %></td>
+			<td><%= product.description %></td>
+			<td><%= link_to product.sku_id, edit_product_path(product) %></td>
+			<td><%= product.price %></td>
+			<td><img class="img_class" src="<%= product.image_path %>"></td>
+		</tr>
+	</tr>
+	<% end %>
+</table>
