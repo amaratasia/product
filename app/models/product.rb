@@ -5,13 +5,12 @@ class Product < ActiveRecord::Base
    :join_table => :products_categories_mapping
   has_and_belongs_to_many :tags,
    :join_table => :products_tags_mapping
-  # validates :sku_id, :uniqueness => { "case_sensitive" => false }
+  validates :sku_id, :uniqueness => { "case_sensitive" => false }
   validates :name, presence: true
   accepts_nested_attributes_for :tags, :images, :categories
 
   def image
     self.images.first.try(:image_path)
-    
   end
 
   def tags_attributes=(tags_attributes)
@@ -39,6 +38,4 @@ class Product < ActiveRecord::Base
       end
     end
   end
-
- 
 end

@@ -1,67 +1,94 @@
 <%= form_for @product do |f| %>
-	<%= f.label :name %>
-	<%= f.text_field :name %>
-	
-	</br></br>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+	</br>
+	</br>
 
 	SKU: <u><%= f.object.sku_id %></u>
-	
-	</br>
-	</br>
 
+	</br>
+	</br>
+<div>
 	<%= f.label :Image %>
 	<img class="img_class" src="<%= f.object.image %>">
+</div>
+	</br>
+  </br>
 
-	</br></br>
-	
-	<%= f.label :price %>
-	<%= f.text_field :price %>
-	
-	</br></br>
-	
-	<%= f.label :description %>
-	<%= f.text_area :description, size: "40x1"%>
+  <%= f.label :price %>
+  <%= f.text_field :price %>
 
-	</br></br>
+  </br>
+  </br>
 
-	<%= f.label :admin_approved %>
-	True: <%= f.radio_button :admin_approved,  true%>
-	False: <%= f.radio_button :admin_approved, false%>
+  <%= f.label :description %>
+  <%= f.text_area :description, size: "40x1"%>
 
-	</br></br>
-<fieldset style="width: 300px;">
-	<legend>Tags</legend>
-	<div id="tag_attr">
-	<div class="btn" onclick="add_fields()">Add New Tag</div>
-	<%= f.fields_for :tags do |t| %>
-		<%= t.hidden_field :id, name: "product[tags_attributes][][id]" %>
-		<%= t.text_field :name, name: "product[tags_attributes][][name]", :readonly => true, class: "tag_checked" %>
-		<%=check_box_tag "product[tags_attributes][][_destroy]"%>
-		</br></br>
-	<%end%>
+  </br>
+  </br>
+
+  <%= f.label :admin_approved %>
+    True: <%= f.radio_button :admin_approved,  true%>
+    False: <%= f.radio_button :admin_approved, false%>
+    </br>
+    </br>
+<div class="extra_options">
+	<div class="tag_details">
+  <fieldset style="width: 300px;">
+    <legend>Tags</legend>
+    <div id="tag_attr">
+      <div class="btn" onclick="add_tag_fields()">New Tag</br></div>
+      <%= f.fields_for :tags do |t| %>
+        <%= t.hidden_field :id, name: "product[tags_attributes][][id]" %>
+        <%= t.text_field :name, name: "product[tags_attributes][][name]", :readonly => true, class: "tag_checked" %>
+        Delete: <%=check_box_tag "product[tags_attributes][][_destroy]"%>
+              </br></br>
+      <%end%>
+    </div>
+  </fieldset>
 	</div>
-</fieldset>
-<fieldset style="width: 300px;">
-	 <legend>Category</legend>
-	<%= f.fields_for :categories do |t| %>
-		<%= t.label :Category %>
-		<%= t.hidden_field :id, name: "product[categories_attributes][][id]" %>
-		<%= t.text_field :name, name: "product[categories_attributes][][name]",:readonly => true, class: "cat_checked" %>
-		Delete: <%=check_box_tag "product[categories_attributes][][_destroy]"%>
-		</br></br>
-	<%end%>
-</fieldset>
-</br></br></br></br>
-	<%=f.submit%>
+	<div class="cat_details">
+  <fieldset style="width: 300px;">
+    <legend>Category</legend>
+    <div id="cat_attr">
+      <div class="btn" onclick="add_cat_fields()">New Category</br></div>
+      <%= f.fields_for :categories do |t| %>
+      <span>
+        <%= t.hidden_field :id, name: "product[categories_attributes][][id]" %>
+        <%= t.text_field :name, name: "product[categories_attributes][][name]",:readonly => true, class: "cat_checked" %>
+					Delete: 
+				<%=check_box_tag "product[categories_attributes][][_destroy]"%>
+        </br> </br>
+      </span>
+      <% end %>
+  	</div>
+  </fieldset>
+  </div>
+</div>
+  </br>
+  </br>
+  <%=f.submit%>
 
 <%end%>
+
 <script type="text/javascript">
-var tag_counter = $('.tag_checked').length;
-	function add_fields() {
-	    tag_counter++;
-	    var objTo = document.getElementById('tag_attr')
-	    var divtest = document.createElement("span");
-	    divtest.innerHTML = '<input name="product[tags_attributes][][name]" placeholder="Add New Tag" type="text" value="" id=\"product_tags_attributes_'+tag_counter+'_name\"> </br></br>'
-	    objTo.appendChild(divtest)
-	}
+  var tag_counter = $('.tag_checked').length;
+  var cat_counter = $('.cat_checked').length;
+
+  function add_tag_fields() {
+    tag_counter++;
+    var objTo = document.getElementById('tag_attr')
+    var divtest = document.createElement("span");
+    divtest.innerHTML = '<input name="product[tags_attributes][][name]" placeholder="Add New Tag" type="text" value="" id=\"product_tags_attributes_' + tag_counter + '_name\"> </br></br>'
+    objTo.appendChild(divtest)
+  }
+
+  function add_cat_fields() {
+    cat_counter++;
+    var objTo = document.getElementById('cat_attr')
+    var divtest = document.createElement("span");
+    divtest.innerHTML = '<input name="product[categories_attributes][][name]" placeholder="Add New Category" type="text" value="" id=\"product_tags_attributes_' + cat_counter + '_name\"></br></br>'
+    objTo.appendChild(divtest)
+  }
 </script>
