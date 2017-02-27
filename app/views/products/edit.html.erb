@@ -1,9 +1,69 @@
-<h2>Amar </h2>
-
-<%= @product %>
-
-
 <%= form_for @product do |f| %>
-<%= f.label :name %>
-<%= f.text_field :name %>
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+	
+	</br></br>
+
+	SKU: <u><%= f.object.sku_id %></u>
+	
+	</br>
+	</br>
+
+	<%= f.label :Image %>
+	<img class="img_class" src="<%= f.object.image %>">
+
+	</br></br>
+	
+	<%= f.label :price %>
+	<%= f.text_field :price %>
+	
+	</br></br>
+	
+	<%= f.label :description %>
+	<%= f.text_area :description, size: "40x1"%>
+
+	</br></br>
+
+	<%= f.label :admin_approved %>
+	True: <%= f.radio_button :admin_approved,  true%>
+	False: <%= f.radio_button :admin_approved, false%>
+
+	</br></br>
+<fieldset style="width: 300px;">
+	<legend>Tags</legend>
+	<div id="tag_attr">
+	<div class="btn" onclick="add_fields()">Add New Tag</div>
+	<%= f.fields_for :tags do |t| %>
+		<%= t.hidden_field :id, name: "product[tags_attributes][][id]" %>
+		<%= t.text_field :name, name: "product[tags_attributes][][name]", :readonly => true%>
+		<%#= t.check_box :_destroy, name:  "product[tags_attributes][][_destroy]"%>
+		<%#= t.check_box :_delete_tag, name: "product[tags_attributes][][name]"%>
+		<%=check_box_tag "product[tags_attributes][][_destroy]", "false", false, class: "tag_checked" %>
+		</br></br>
+	<%end%>
+	</div>
+</fieldset>
+<fieldset style="width: 300px;">
+	 <legend>Category</legend>
+	<%= f.fields_for :categories do |t| %>
+		<%= t.label :Category %>
+		<%= t.hidden_field :id, name: "product[categories_attributes][][id]" %>
+		<%= t.text_field :name, name: "product[categories_attributes][][name]",:readonly => true%>
+		Delete: <%=check_box_tag "product[categories_attributes][][_destroy]", "false", false, class: "cat_checked" %>
+		</br></br>
+	<%end%>
+</fieldset>
+</br></br></br></br>
+	<%=f.submit%>
+
 <%end%>
+<script type="text/javascript">
+var tag_counter = $('.tag_checked').length;
+	function add_fields() {
+	    tag_counter++;
+	    var objTo = document.getElementById('tag_attr')
+	    var divtest = document.createElement("span");
+	    divtest.innerHTML = '<input name="product[tags_attributes][][name]" placeholder="Add New Tag" type="text" value="" id=\"product_tags_attributes_'+tag_counter+'_name\"> </br></br>'
+	    objTo.appendChild(divtest)
+	}
+</script>

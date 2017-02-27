@@ -3,7 +3,12 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  resources :products
+  resources :products do 
+    collection do
+      get 'remove_tag'
+    end
+    resources :tags
+  end
 
   # Api definition
   # , constraints: { subdomain: 'api' }

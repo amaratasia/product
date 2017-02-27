@@ -7,7 +7,7 @@ class CreateProducts < ActiveRecord::Migration
       t.integer :price
       t.text :description
       t.datetime :expire_date
-      t.boolean :admin_approved
+      t.boolean :admin_approved , :default => false
 
       t.timestamps null: false
       t.index :sku_id

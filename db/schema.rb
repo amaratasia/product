@@ -23,13 +23,14 @@ ActiveRecord::Schema.define(version: 20170225051135) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.string   "sku_id",      limit: 255
-    t.integer  "price",       limit: 4
-    t.text     "description", limit: 65535
+    t.string   "name",           limit: 255
+    t.string   "sku_id",         limit: 255
+    t.integer  "price",          limit: 4
+    t.text     "description",    limit: 65535
     t.datetime "expire_date"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.boolean  "admin_approved",               default: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
   end
 
   add_index "products", ["sku_id"], name: "index_products_on_sku_id", using: :btree
@@ -44,14 +45,8 @@ ActiveRecord::Schema.define(version: 20170225051135) do
     t.integer "tag_id",     limit: 4
   end
 
-  create_table "products_tags_mappings", force: :cascade do |t|
-    t.integer "product_id", limit: 4
-    t.integer "tag_id",     limit: 4
-  end
-
   create_table "tags", force: :cascade do |t|
-    t.string "name",       limit: 255
-    t.string "product_id", limit: 255
+    t.string "name", limit: 255
   end
 
 end

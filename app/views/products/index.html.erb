@@ -8,7 +8,6 @@
 	</tr>
 	<% for product in @products%>
 	<tr>
-		<%Rails.logger.debug "amar   232434 #{product.inspect}"%>
 		<tr>
 			<td><%= link_to product.name, edit_product_path(product) %></td>
 			<td><%= product.description %></td>
