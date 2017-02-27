@@ -35,10 +35,8 @@
 	<div class="btn" onclick="add_fields()">Add New Tag</div>
 	<%= f.fields_for :tags do |t| %>
 		<%= t.hidden_field :id, name: "product[tags_attributes][][id]" %>
-		<%= t.text_field :name, name: "product[tags_attributes][][name]", :readonly => true%>
-		<%#= t.check_box :_destroy, name:  "product[tags_attributes][][_destroy]"%>
-		<%#= t.check_box :_delete_tag, name: "product[tags_attributes][][name]"%>
-		<%=check_box_tag "product[tags_attributes][][_destroy]", "false", false, class: "tag_checked" %>
+		<%= t.text_field :name, name: "product[tags_attributes][][name]", :readonly => true, class: "tag_checked" %>
+		<%=check_box_tag "product[tags_attributes][][_destroy]"%>
 		</br></br>
 	<%end%>
 	</div>
@@ -48,8 +46,8 @@
 	<%= f.fields_for :categories do |t| %>
 		<%= t.label :Category %>
 		<%= t.hidden_field :id, name: "product[categories_attributes][][id]" %>
-		<%= t.text_field :name, name: "product[categories_attributes][][name]",:readonly => true%>
-		Delete: <%=check_box_tag "product[categories_attributes][][_destroy]", "false", false, class: "cat_checked" %>
+		<%= t.text_field :name, name: "product[categories_attributes][][name]",:readonly => true, class: "cat_checked" %>
+		Delete: <%=check_box_tag "product[categories_attributes][][_destroy]"%>
 		</br></br>
 	<%end%>
 </fieldset>
