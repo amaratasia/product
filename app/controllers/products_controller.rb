@@ -1,6 +1,5 @@
 # Controller for all products
 class ProductsController < ApplicationController
-  include ProductData
   
   def create
     Product.create!(product_params)
