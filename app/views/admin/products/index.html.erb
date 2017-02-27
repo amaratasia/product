@@ -1,5 +1,6 @@
-	<tr>
+
 <table border=1 style="text-align: center;">
+	<tr>
 		<th>Name</th>
 		<th>Description</th>
 		<th>SKU ID</th>
@@ -9,9 +10,9 @@
 	<% for product in @products%>
 	<tr>
 		<tr>
-			<td><%= link_to product.name, edit_product_path(product) %></td>
+			<td><%= link_to product.name, edit_admin_product_path(product) %></td>
 			<td><%= product.description %></td>
-			<td><%= link_to product.sku_id, edit_product_path(product) %></td>
+			<td><%= link_to product.sku_id, edit_admin_product_path(product) %></td>
 			<td><%= product.price %></td>
 			<td><img class="img_class" src="<%= product.image_path %>"></td>
 		</tr>

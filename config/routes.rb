@@ -2,12 +2,8 @@ Rails.application.routes.draw do
   get 'home/index'
 
   root to: 'home#index'
-
-  resources :products do 
-    collection do
-      get 'remove_tag'
-    end
-    resources :tags
+  namespace :admin do
+    resources :products
   end
 
   # Api definition

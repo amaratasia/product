@@ -1,5 +1,5 @@
 # Controller for all products
-class ProductsController < ApplicationController
+class Admin::ProductsController < ApplicationController
   
   def create
     Product.create!(product_params)
