@@ -2,8 +2,12 @@
 class Admin::ProductsController < ApplicationController
   
   def create
-    Product.create!(product_params)
-    render :json => {status: "data", :product=> "product"}
+    @product = Product.create(product_params)
+    if @product.save
+      render :json => {status: "success", :message=> "Product Successfully Created"}, :status => 200
+    else
+      render :json => {status: "success", :message => @product.errors.messages}, :status => 422
+    end
   end
 
   def edit
@@ -15,8 +19,9 @@ class Admin::ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
-    @product.update_attributes(product_params)
-    redirect_to action: :index
+    if @product.update_attributes(product_params)
+      redirect_to action: :index
+    end
   end
 
   private
