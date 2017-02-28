@@ -1,6 +1,5 @@
 # Controller for all products
 class Admin::ProductsController < ApplicationController
-  
   def create
     @product = Product.create(product_params)
     if @product.save
@@ -14,7 +13,7 @@ class Admin::ProductsController < ApplicationController
     @product = Product.find(params[:id])
   end
   def index
-    @products = Product.joins("left join images on images.product_id = products.id").select("products.*, images.image_path").group("products.id")
+    @products = Product.joins("left join images on images.product_id = products.id").select("products.*, images.img_path img").group("products.id")
   end
 
   def update
@@ -33,8 +32,8 @@ class Admin::ProductsController < ApplicationController
     params[:product][:images_attributes] = params[:product][:images] if params[:product].key?(:images)
 
     #Do not Whitelist Admin approved for Create Calls.
-    return params.require(:product).permit(:name, :sku_id, :price, :description, :expire_date, images_attributes: [:image_path], tags_attributes: [:id, :name, :_destroy], categories_attributes: [:id, :name, :_destroy]) if (params[:action] == "create")
+    return params.require(:product).permit(:name, :sku_id, :price, :description, :expire_date, images_attributes: [:img_path], tags_attributes: [:id, :name, :_destroy], categories_attributes: [:id, :name, :_destroy]) if (params[:action] == "create")
 
-    return params.require(:product).permit(:name, :sku_id, :price, :description, :expire_date, :admin_approved, images_attributes: [:image_path], tags_attributes: [:id, :name, :_destroy], categories_attributes: [:id, :name, :_destroy])
+    return params.require(:product).permit(:name, :sku_id, :price, :description, :expire_date, :admin_approved, images_attributes: [:img_path], tags_attributes: [:id, :name, :_destroy], categories_attributes: [:id, :name, :_destroy])
   end
 end
