@@ -5,7 +5,7 @@ class ProductTest < ActiveSupport::TestCase
   #   assert true
   # end
 
-  test 'tag_attributes=' do
+  test 'create_product' do
   	params = {
   		"product"=> {
   			"expire_date" => "2016-09-05",
@@ -28,7 +28,7 @@ class ProductTest < ActiveSupport::TestCase
   			"price" => 35,
   			"description" => "loaded with goodness of natural wholegrain oatsalong with real vegetables and recherche spices. A great way to start your day.The goodness of the product lies in its ingredients!"
   			}
-  		}
+  	}
 		product = Product.new(params["product"])
 		product.save
 		assert_equal product.tags.size, 3

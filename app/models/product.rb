@@ -7,7 +7,7 @@ class Product < ActiveRecord::Base
    :join_table => :products_tags_mapping
   validates :sku_id, :uniqueness => { "case_sensitive" => false }
   validates :name, presence: true
-  accepts_nested_attributes_for :tags, :images, :categories
+  accepts_nested_attributes_for :images
 
   def image
     self.images.first.try(:img_path)
