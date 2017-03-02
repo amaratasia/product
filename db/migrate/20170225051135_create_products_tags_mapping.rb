@@ -1,6 +1,6 @@
 class CreateProductsTagsMapping < ActiveRecord::Migration
 	def change
-		create_table :products_tags_mapping do |t|
+		create_table :products_tags_mapping, id: false do |t|
 			t.belongs_to :product, index: true
 			t.belongs_to :tag, index: true
 		end
