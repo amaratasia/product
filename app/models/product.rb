@@ -5,8 +5,9 @@ class Product < ActiveRecord::Base
    :join_table => :products_categories_mapping
   has_and_belongs_to_many :tags,
    :join_table => :products_tags_mapping
+  validates :name, :sku_id, :price, presence: true
   validates :sku_id, :uniqueness => { "case_sensitive" => false }
-  validates :name, presence: true
+  validates :price, numericality: { greater_than: 0 }
   accepts_nested_attributes_for :images
 
   def image

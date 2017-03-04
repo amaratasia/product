@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20170225051135) do
   end
 
   create_table "images", force: :cascade do |t|
-    t.string "image_path", limit: 255
+    t.string "img_path",   limit: 255
     t.string "product_id", limit: 255
   end
 
@@ -35,15 +35,21 @@ ActiveRecord::Schema.define(version: 20170225051135) do
 
   add_index "products", ["sku_id"], name: "index_products_on_sku_id", using: :btree
 
-  create_table "products_categories_mapping", force: :cascade do |t|
+  create_table "products_categories_mapping", id: false, force: :cascade do |t|
     t.integer "product_id",  limit: 4
     t.integer "category_id", limit: 4
   end
 
-  create_table "products_tags_mapping", force: :cascade do |t|
+  add_index "products_categories_mapping", ["category_id"], name: "index_products_categories_mapping_on_category_id", using: :btree
+  add_index "products_categories_mapping", ["product_id"], name: "index_products_categories_mapping_on_product_id", using: :btree
+
+  create_table "products_tags_mapping", id: false, force: :cascade do |t|
     t.integer "product_id", limit: 4
     t.integer "tag_id",     limit: 4
   end
+
+  add_index "products_tags_mapping", ["product_id"], name: "index_products_tags_mapping_on_product_id", using: :btree
+  add_index "products_tags_mapping", ["tag_id"], name: "index_products_tags_mapping_on_tag_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.string "name", limit: 255

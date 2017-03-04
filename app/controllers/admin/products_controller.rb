@@ -1,8 +1,8 @@
 # Controller for all products
 class Admin::ProductsController < ApplicationController
   def create
-    @product = Product.create(product_params)
-    if @product.save
+    product = Product.create(product_params)
+    if product.save
       render :json => {status: "success", :message=> "Product Successfully Created"}, :status => 200
     else
       render :json => {status: "success", :message => @product.errors.messages}, :status => 422
