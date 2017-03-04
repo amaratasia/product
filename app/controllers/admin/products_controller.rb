@@ -1,11 +1,15 @@
 # Controller for all products
 class Admin::ProductsController < ApplicationController
   def create
+    begin
       product = Product.create(product_params)
       if product.save
         render :json => {status: "success", :message=> "Product Successfully Created"}, :status => 200
       else
         render :json => {status: "success", :message => product.errors.messages}, :status => 422
+      end  
+    rescue => e
+      render :json => {status: "fail", :message => e.message}, :status => 400
     end
   end
 
@@ -19,8 +23,11 @@ class Admin::ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
     if @product.update_attributes(product_params)
-      redirect_to action: :index
+      flash[:success] = "Product Updated"
+    else 
+      flash[:success] = "Error: #{@product.errors.messages}"
     end
+    redirect_to action: :index
   end
 
   private
