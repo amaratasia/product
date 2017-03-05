@@ -1,5 +1,5 @@
 # Controller for all products
-class Admin::ProductsController < ApplicationController
+class Api::V1::ProductsController < ApplicationController
   def create
     begin
       product = Product.create(product_params)
