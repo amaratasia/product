@@ -19,3 +19,8 @@
 	</tr>
 	<% end %>
 </table>
+
+
+<% for tag in @tags %>
+<%= link_to tag.name, admin_products_path(tag_name: tag.name)%>(<%= tag.tag_count%>)
+<% end%> 
