@@ -15,7 +15,7 @@ task :get_active_user =>  :environment do |t,args|
 		 UserMailer.send_message("user@f22labs.com",complete_data.collect{|user| user[:email]}, "Weekly Report",complete_data)
 	end
 	#For One Mail per user
-	bulk_data = bulk_data.group_by {|data| data[:email]}
+	bulk_data = bulk_data.flatten.group_by {|data| data[:email]}
 	bulk_data.each do |email, group_list|
 		 UserMailer.send_single_user_message("user@f22labs.com",email, "Weekly Report", group_list)
 	end
